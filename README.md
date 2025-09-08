@@ -1,6 +1,6 @@
-# 🎉 AutoWisher - Automatic Birthday Wisher App
+# 🎉 WishGenie - Automatic Birthday Wisher App
 
-AutoWisher is a simple and efficient web application designed to automatically send personalized birthday wishes via WhatsApp. Users can manage birthday data and automate the process of sending greetings without lifting a finger!
+WishGenie is a simple and efficient web application designed to automatically send personalized birthday wishes via WhatsApp. Users can manage birthday data and automate the process of sending greetings without lifting a finger!
 
 ---
 
