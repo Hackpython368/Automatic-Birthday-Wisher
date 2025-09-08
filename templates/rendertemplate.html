@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WishGenie 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #fff0f5; /* light background */
+      color: #333;
+      text-align: center;
+    }
+
+    header {
+      background: #fff0f5;
+      color: #ff6a88;
+      padding: 25px;
+      border-bottom: 2px solid #ffd6e8;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    h2 {
+      margin: 8px 0 0 0;
+      font-weight: 400;
+      font-size: 20px;
+    }
+
+    .main-container {
+      max-width: 1100px;
+      height: 500px;
+      margin: auto;
+      padding: 40px 20px;
+      position: relative; /* for absolute arrows */
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      justify-items: center; /* center fixed width cards */
+    }
+
+    .card {
+      background: white;
+      width: 280px;   /* fixed width */
+      height: 120px;  /* fixed height */
+      padding: 10px;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      text-align: left;
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* evenly space elements */
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .date {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff6a88;
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .msg {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .add-btn {
+      display: inline-block;
+      margin: 20px;
+      padding: 12px 22px;
+      background: #ff6a88;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      background: #e25573;
+    }
+
+    .nav-btn {
+      background: #ff6a88;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      display: none; /* hidden until needed */
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .nav-btn:hover {
+      background: #e25573;
+    }
+
+    .prev-btn {
+      left: -60px;
+    }
+
+    .next-btn {
+      right: -60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WishGenie 🎉</h1>
+    <h2>📅 Your Smart Event Reminder</h2>
+  </header>
+
+  <button class="add-btn" onclick="addCard()">➕ Add Event</button>
+
+  <div class="main-container">
+    <button class="nav-btn prev-btn" id="prevBtn" onclick="prevPage()">&#8249;</button>
+    <div class="card-container" id="cardContainer"></div>
+    <button class="nav-btn next-btn" id="nextBtn" onclick="nextPage()">&#8250;</button>
+  </div>
+
+  <script>
+    let allCards = [];   
+    let currentPage = 0; 
+    const cardsPerPage = 9;
+
+    function renderCards() {
+      const container = document.getElementById("cardContainer");
+      container.innerHTML = "";
+
+      let start = currentPage * cardsPerPage;
+      let end = start + cardsPerPage;
+      let pageCards = allCards.slice(start, end);
+
+      pageCards.forEach(card => {
+        let div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <div class="date">${card.date}</div>
+          <div class="name">${card.name}</div>
+          <div class="msg">${card.msg}</div>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById("prevBtn").style.display = currentPage > 0 ? "block" : "none";
+      document.getElementById("nextBtn").style.display = end < allCards.length ? "block" : "none";
+    }
+
+    function addCard() {
+      let newCard = {
+        date: "New Date",
+        name: "New Name",
+        msg: "New Message"
+      };
+      allCards.push(newCard);
+      renderCards();
+    }
+
+    function nextPage() {
+      currentPage++;
+      renderCards();
+    }
+
+    function prevPage() {
+      currentPage--;
+      renderCards();
+    }
+
+    allCards = [
+      {date: "08 Sep", name: "Amit Sharma", msg: "Happy Birthday! 🎂🎁"},
+      {date: "12 Sep", name: "Priya Verma", msg: "Good luck on your exam! ✨"},
+      {date: "20 Sep", name: "Rahul Singh", msg: "Anniversary wishes ❤️"},
+      {date: "25 Sep", name: "Anjali Mehta", msg: "Congrats on your new job 🎊"},
+      {date: "30 Sep", name: "Vikas Yadav", msg: "Best wishes for the future 🚀"},
+      {date: "02 Oct", name: "Sneha Kapoor", msg: "Happy Birthday 🎂"},
+      {date: "10 Oct", name: "Rohit Jain", msg: "Good luck for the match ⚡"},
+      {date: "15 Oct", name: "Nisha Roy", msg: "Stay happy always 🌸"},
+      {date: "20 Oct", name: "Manoj Gupta", msg: "Best of luck 👍"},
+      {date: "25 Oct", name: "Pooja Sharma", msg: "Happy Anniversary 💕"}
+    ];
+
+    renderCards();
+  </script>
+</body>
+</html>
